@@ -1,0 +1,57 @@
+import UserModel from "@/models/User"
+import { hashPassword } from "@/utils/auth"
+import connectDB from "@/utils/connectDB"
+
+export async function POST(req: Request) {
+    try {
+        await connectDB()
+
+        const { email, password } = (await req.json()) as {
+            email: string
+            password: string
+        }
+
+        if (!email || !password) {
+            return Response.json(
+                {
+                    status: 422,
+                    error: "لطفا اطلاعات معتبر وارد کنید",
+                },
+                { status: 422 }
+            )
+        }
+
+        const existingUser = await UserModel.findOne({ email })
+
+        if (existingUser) {
+            return Response.json(
+                {
+                    status: 422,
+                    error: "این حساب کاربری وجود دارد",
+                },
+                { status: 422 }
+            )
+        }
+
+        const hashedPassword = await hashPassword(password)
+
+        const newUser = await UserModel.create({
+            email,
+            password: hashedPassword,
+        })
+
+        console.log(newUser)
+
+        return Response.json({
+            status: 200,
+            message: "حساب کاربری ایجاد شد",
+        })
+    } catch (error) {
+        console.log(error)
+
+        return Response.json(
+            { error: "مسکلی در سرور رخ داده است" },
+            { status: 500 }
+        )
+    }
+}
