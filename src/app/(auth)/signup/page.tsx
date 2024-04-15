@@ -21,10 +21,7 @@ const SignUp = () => {
 
         const data = await res.json()
         console.log(data);
-        if(data.status === 200) router.push("/signin")
-
-
-
+        if (data.status === 200) router.push("/signin")
     }
 
     return (

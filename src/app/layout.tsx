@@ -4,6 +4,7 @@ import "./globals.css";
 import { yekanbakh } from "@/utils/fonts";
 import Header from "@/app/_components/header/header";
 import Footer from "@/app/_components/footer/footer";
+import NextAuthProvider from "@/providers/NextAuthProvider";
 
 
 const inter = Inter({ subsets: ["latin"] });
@@ -22,11 +23,13 @@ export default function RootLayout({
     return (
         <html lang="fa" dir="rtl" className={`${yekanbakh.variable}`}>
             <body className="min-h-screen grid grid-rows-[80px_1fr_auto]">
-                <Header />
-                <main>
-                    {children}
-                </main>
-                <Footer />
+                <NextAuthProvider>
+                    <Header />
+                    <main>
+                        {children}
+                    </main>
+                    <Footer />
+                </NextAuthProvider>
             </body>
         </html>
     );

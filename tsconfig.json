@@ -27,6 +27,7 @@
       "@/types/*": ["src/types/*"],
       "@/configs/*": ["src/configs/*"],
       "@/core/*": ["src/core/*"],
+      "@/providers/*": ["src/providers/*"],
       "@/libs/*": ["src/libs/*"],
       "@/api/*": ["src/app/api/*"],
     }
