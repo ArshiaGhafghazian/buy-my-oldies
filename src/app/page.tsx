@@ -8,13 +8,3 @@ export default function Home() {
     </>
   );
 }
-
-//https://www.drone.io/
-//#00ABE4
-//#EBF3FB
-//#D2E3F6
-//#1E375A
-//#61738B
-//#FFFFFF
-//#2364D2
-//#E3EEFA

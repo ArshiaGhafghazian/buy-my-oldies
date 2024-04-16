@@ -14,10 +14,12 @@ export async function POST(req: Request) {
         if (!email || !password) {
             return Response.json(
                 {
-                    status: 422,
-                    error: "لطفا اطلاعات معتبر وارد کنید",
+                    type: "",
+                    title: "",
+                    status: 400,
+                    details: "لطفا اطلاعات معتبر وارد کنید",
                 },
-                { status: 422 }
+                { status: 400 }
             )
         }
 
@@ -26,10 +28,12 @@ export async function POST(req: Request) {
         if (existingUser) {
             return Response.json(
                 {
-                    status: 422,
-                    error: "این حساب کاربری وجود دارد",
+                    type: "",
+                    title: "",
+                    status: 400,
+                    details: "این حساب کاربری وجود دارد",
                 },
-                { status: 422 }
+                { status: 400 }
             )
         }
 
@@ -50,7 +54,11 @@ export async function POST(req: Request) {
         console.log(error)
 
         return Response.json(
-            { error: "مسکلی در سرور رخ داده است" },
+            {
+                type: "",
+                title: "",
+                status: 500,
+            },
             { status: 500 }
         )
     }

@@ -1,5 +1,7 @@
 "use client"
 
+import { createData } from "@/core/http-servise/http-service"
+import { AxiosResponse } from "axios"
 import Link from "next/link"
 import { redirect, useRouter } from "next/navigation"
 import { FormEvent, useState } from "react"
@@ -11,17 +13,12 @@ const SignUp = () => {
 
     const handleSubmit = async (event: FormEvent<HTMLFormElement>): Promise<void> => {
         event.preventDefault()
-        const res = await fetch("/api/auth/signup", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({ email, password }),
-        })
+   
+       const response = await createData("/auth/signup",{ email, password }) as AxiosResponse
 
-        const data = await res.json()
-        console.log(data);
-        if (data.status === 200) router.push("/signin")
+        
+        console.log(response);
+        if (response.status === 200) router.push("/signin")
     }
 
     return (
