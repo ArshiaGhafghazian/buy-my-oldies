@@ -1,6 +1,6 @@
 "use client"
 
-import { signIn } from "next-auth/react"
+import { signIn, useSession } from "next-auth/react"
 import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { FormEvent, useState } from "react"
@@ -10,6 +10,9 @@ const SignIn = () => {
     const [email, setEmail] = useState<string>("")
     const [password, setPassword] = useState<string>("")
     const router = useRouter()
+    const { data: session, status } = useSession()
+    console.log(session, status);
+
 
     const handleSignin = async (event: FormEvent<HTMLFormElement>): Promise<void> => {
         event.preventDefault()
@@ -18,9 +21,9 @@ const SignIn = () => {
             password,
             redirect: false
         })
-        if(res?.error){
+        if (res?.error) {
             console.log(res.error);
-        }else {
+        } else {
             router.push("/")
         }
     }
