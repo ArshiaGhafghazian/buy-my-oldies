@@ -1,21 +1,20 @@
-import NextAuth, { AuthOptions, Awaitable, User } from "next-auth"
-import CredentialsProvider from "next-auth/providers/credentials"
+import NextAuth from "next-auth"
 import UserModel from "@/models/User"
 import { verifyPassword } from "@/utils/auth"
 import connectDB from "@/utils/connectDB"
+import credentials from "next-auth/providers/credentials"
 
 type Credentials = {
-    email?: string
-    password?: string
+    email: string
+    password: string
 }
 
-export const authOptions: AuthOptions = {
+export const { handlers, auth, signIn, signOut } = NextAuth({
     session: { strategy: "jwt" },
     providers: [
-        CredentialsProvider({
-            //@ts-ignore
-            async authorize(credentials:Credentials){
-                const { email, password } = credentials || {}
+        credentials({
+            async authorize(credentials, req) {
+                const { email, password } = credentials as Credentials
 
                 try {
                     await connectDB()
@@ -44,8 +43,5 @@ export const authOptions: AuthOptions = {
             },
         }),
     ],
-}
-
-const handler = NextAuth(authOptions)
-
-export { handler as GET, handler as POST }
+})
+export const { GET, POST } = handlers
