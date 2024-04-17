@@ -14,7 +14,7 @@ export const authOptions: AuthOptions = {
     providers: [
         CredentialsProvider({
             //@ts-ignore
-            async authorize(credentials){
+            async authorize(credentials:Credentials){
                 const { email, password } = credentials || {}
 
                 try {

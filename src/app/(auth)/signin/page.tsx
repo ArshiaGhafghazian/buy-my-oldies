@@ -10,9 +10,9 @@ const SignIn = () => {
     const [email, setEmail] = useState<string>("")
     const [password, setPassword] = useState<string>("")
     const router = useRouter()
-    const { data: session, status } = useSession()
-    console.log(session, status);
+    const { status } = useSession()
 
+    if (status === "authenticated") router.replace("/")
 
     const handleSignin = async (event: FormEvent<HTMLFormElement>): Promise<void> => {
         event.preventDefault()
