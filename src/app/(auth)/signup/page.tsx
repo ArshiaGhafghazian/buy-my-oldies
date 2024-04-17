@@ -1,7 +1,8 @@
 
 import { redirect } from "next/navigation";
 import SignUp from "./_components/signup";
-import { auth } from "@/app/api/auth/[...nextauth]/route";
+import { auth } from "@/utils/auth";
+
 
 
 const SignUpPage = async () => {

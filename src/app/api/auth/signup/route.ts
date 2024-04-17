@@ -1,5 +1,5 @@
 import UserModel from "@/models/User"
-import { hashPassword } from "@/utils/auth"
+import { hashPassword } from "@/utils/authUtils"
 import connectDB from "@/utils/connectDB"
 
 export async function POST(req: Request) {
