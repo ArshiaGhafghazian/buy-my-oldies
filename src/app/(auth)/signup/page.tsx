@@ -5,20 +5,23 @@ import { AxiosResponse } from "axios"
 import Link from "next/link"
 import { redirect, useRouter } from "next/navigation"
 import { FormEvent, useState } from "react"
+import { useSignUp } from "./_api/singup"
 
 const SignUp = () => {
     const [email, setEmail] = useState<string>("")
     const [password, setPassword] = useState<string>("")
     const router = useRouter()
 
+    const signUp = useSignUp({
+        onSuccess: () => {
+            router.push("/signin")
+        }
+    })
+
     const handleSubmit = async (event: FormEvent<HTMLFormElement>): Promise<void> => {
         event.preventDefault()
-   
-       const response = await createData("/auth/signup",{ email, password }) as AxiosResponse
+        signUp.submit({ email, password })
 
-        
-        console.log(response);
-        if (response.status === 200) router.push("/signin")
     }
 
     return (
